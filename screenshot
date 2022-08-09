@@ -1,0 +1,20 @@
+#!/usr/bin/sh
+
+###################################################################
+#Script Name	:screenshot                                                                                              
+#Description	:take a screenshot                                                                                
+#Args           :                                                                                           
+#Author       	:unixsilk                               
+#Email         	:                                   
+###################################################################
+
+rand="screenshot__"$(date +%H:%M:%S__%d-%m-%Y)
+
+if [  -d ~/Pictures ]
+then
+	:
+else
+	mkdir ~/Pictures
+	mkdir ~/Pictures/screenshot
+fi
+sleep 3; imlib2_grab ~/Pictures/screenshot/"$rand".jpg

@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+for each in *.html
+do
+	sed -i 's/https:\/\/stackedit.io\/style.css/..\/style\/style.css/' "$each"
+done
+

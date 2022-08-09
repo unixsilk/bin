@@ -1,0 +1,11 @@
+#!/bin/sh
+
+###################################################################
+#Script Name	:plex                                                                                              
+#Description	:Simple launch script for the flatpak package of plex.                                                                                 
+#Args           :                                                                                           
+#Author       	:unixsilk                               
+#Email         	:                               
+###################################################################
+
+tv.plex.PlexMediaPlayer

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+###################################################################
+#Script Name	:push                                                                                              
+#Description	:small script to push files to github                                                                                 
+#Args          	:                                                                                           
+#Author       	:unixsilk                                             
+#Email         	:                                           
+###################################################################
+
+git add -A && git commit && git push
