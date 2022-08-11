@@ -12,7 +12,6 @@
 echo "enter tvdbid"
 read -r tvdbid
 mkdir tmp
-echo "test1"
 
 curl -Ls -o /dev/null -w %{url_effective} https://www.thetvdb.com/dereferrer/series/"$tvdbid" | sed 's,$,\/allseasons\/official,' | xargs curl -s | grep -o S[0-99][0-99]E[0-9999][0-9999] > tmp/data.txt
 curl -Ls -o /dev/null -w %{url_effective} https://www.thetvdb.com/dereferrer/series/"$tvdbid" | sed 's,$,\/allseasons\/official,' > tmp/url.txt
@@ -36,7 +35,6 @@ for i in range(len(regex)):
  sys.stdout.close()
 
 END
-echo "test2"
 cw=$(wc -l < tmp/data.txt)
 i=0
 while [ "$i" -lt "$cw" ]
@@ -54,21 +52,17 @@ xw=$(wc -l < tmp/tokyo.txt)
 if [ "$cw" -ne "$xw" ]
 then
 	echo "Your Mediathek's episodes count doesnt match thetvdb.com."
-	echo "You have "$xw" episodes, but should have "$cw""
+	echo You have "$xw" episodes, but should have "$cw"
 	echo "Exit."	
 	exit
 fi
 
 
-echo "test3"
 sed 's/.*\.//' tmp/tokyo.txt  > tmp/extension.txt
 paste -d "." tmp/com.txt tmp/extension.txt > tmp/mari.txt 
-echo "test4.1"
 
 mkdir "$(cat tmp/bass.txt)"
 #love="$(cat tmp/bass.txt | sed 's/\(^\|$\)/"/g' )"
-danger="$(cat tmp/bass.txt)"
-echo "test4.2"
 
 i=0
 while [ "$i" -lt "$cw" ]
@@ -76,29 +70,24 @@ do
 	readlink -f "$(cat tmp/bass.txt)" >> tmp/tell.txt
 	i=$((i+1))
 done
-echo "test4"
 
 sed 's/\..*//g' tmp/mari.txt | sed 's/E...[0-999]//g' | sed 's/E..[0-999]//g' | sed 's/E[0-999][0-999]//g' | sed '/^$/d' > tmp/more.txt
 paste -d "/" tmp/tell.txt tmp/more.txt > tmp/kissme.txt 
 paste -d "/" tmp/kissme.txt tmp/mari.txt > tmp/oxi.txt
 paste -d "@" tmp/tokyo.txt tmp/oxi.txt > tmp/titan.txt 
 
+try=$(grep -c "S*E01" tmp/data.txt)
 
-
-try=$(grep -c S*E01 tmp/data.txt)
-
-
-export vicky=$(cat tmp/bass.txt)
+vicky=$(cat tmp/bass.txt)
+export vicky
 
 seq -w 01 "$try" > tmp/scream.txt
-echo "test5"
 
 cd "$vicky" || exit
-<../tmp/scream.txt xargs -I{} -P1 bash -c 'mkdir S"{}"\ "-"\ "$vicky"'
+<../tmp/scream.txt xargs -I{} -P1 bash -c "mkdir S'{}'\ '-'\ '$vicky'"
 cd .. || exit
 
 
-echo "test5"
 
 while IFS=@ read -r orig target; do
     mv "$orig" "$target"
